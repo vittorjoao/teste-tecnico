@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 
+/* Injectable class for translating Paginator component */
 @Injectable()
 export class PTBRMatPaginatorIntl extends MatPaginatorIntl {
   constructor() {

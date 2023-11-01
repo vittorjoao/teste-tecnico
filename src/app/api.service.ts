@@ -7,10 +7,12 @@ import { API, Person } from 'src/types';
   providedIn: 'root',
 })
 export class ApiService {
+  /* Endpoint URL */
   private API_URL: string = 'https://abitus-api.pjc.mt.gov.br/v1/pessoas/';
 
   constructor(private http: HttpClient) {}
 
+  /* Get missing persons data from https://abitus-api.pjc.mt.gov.br/v1/pessoas */
   get(page: number): Observable<API> {
     const options = {
       params: new HttpParams()
@@ -25,6 +27,7 @@ export class ApiService {
     );
   }
 
+  /* Get missing person data by Id from https://abitus-api.pjc.mt.gov.br/v1/pessoas/:id */
   getById(id: number): Observable<Person> {
     const options = {
       params: new HttpParams().set('id', id),
@@ -38,6 +41,7 @@ export class ApiService {
     );
   }
 
+  /* Handle error messages from RxJS requests */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

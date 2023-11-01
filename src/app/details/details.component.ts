@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Observable, switchMap } from 'rxjs';
 import { Person } from 'src/types';
 import { ApiService } from '../api.service';
 

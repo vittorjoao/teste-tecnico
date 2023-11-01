@@ -16,7 +16,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatDialogModule } from '@angular/material/dialog';
 import { ListCardComponent } from './list-card/list-card.component';
 import {
   MatPaginatorIntl,
@@ -57,7 +56,6 @@ import { HomeComponent } from './home/home.component';
     MatButtonModule,
     MatPaginatorModule,
     MatProgressBarModule,
-    MatDialogModule,
   ],
 })
 export class AppModule {}

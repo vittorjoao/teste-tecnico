@@ -76,7 +76,7 @@ export class HomeComponent {
     }
   }
 
-  /* Resets the filters to the original state of personsData as well as the form to empty values */
+  /* Reset filters to the original state of personsData as well as the form to empty values */
   resetFilter(applyToGender: boolean) {
     this.filteredPersonsData = this.personsData;
 

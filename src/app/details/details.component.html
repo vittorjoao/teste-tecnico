@@ -1,11 +1,12 @@
 <mat-progress-bar
   mode="indeterminate"
-  class="absolute top-0 left-0"
+  class="fixed top-0 left-0"
   *ngIf="loading"
 ></mat-progress-bar>
 <main
   class="min-h-screen flex flex-col justify-start items-center mx-auto p-4 bg-gray-200 space-y-2"
 >
+  <!-- HEADER -->
   <header
     class="w-full md:max-w-xl flex justify-start items-center gap-4 bg-white p-4"
   >
@@ -16,15 +17,37 @@
       >{{ personData?.id }} - {{ personData?.nome }}</span
     >
   </header>
+  <!-- DETAILS -->
   <content class="w-full md:max-w-xl space-y-2 bg-white p-4">
     <h4>Detalhes</h4>
-    <div class="flex justify-center my-2">
+    <div class="flex flex-col justify-center items-center gap-4 mb-2">
       <img
         matListItemAvatar
         src="{{ personData?.urlFoto ?? '/assets/avatar.png' }}"
         alt="foto_pessoa"
-        class="max-w-xs max-h-80 mb-[22px] rounded-md border border-slate-300 shadow-sm"
+        class="max-w-xs max-h-80 rounded-md border border-slate-300 shadow-sm"
       />
+      <!-- SOCIAL BUTTONS -->
+      <div class="flex justify-center items-center gap-4 mb-4">
+        <a
+          target="_blank"
+          href="whatsapp://send?text=Informacoes%2C%20Sobre%2C%20{{
+            personData?.nome
+          }}!"
+        >
+          <button mat-icon-button class="text-center">
+            <img class="w-4 h-4" src="/assets/whatsapp.svg" alt="whatsapp" />
+          </button>
+        </a>
+        <a href="mailto:?subject=Informacoes sobre {{ personData?.nome }}">
+          <button
+            mat-icon-button
+            class="text-center border border-slate-800 shadow-sm"
+          >
+            <img class="w-5 h-5" src="/assets/mail.svg" alt="mail" />
+          </button>
+        </a>
+      </div>
     </div>
     <div
       class="flex flex-col md:flex-row justify-between lg:justify-start items-center gap-2"
