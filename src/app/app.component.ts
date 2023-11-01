@@ -40,6 +40,7 @@ export class AppComponent {
       this.totalPages = API.totalElements;
       this.currentPage = API.pageable.pageNumber;
       this.loading = false;
+      this.resetFilter(true);
     });
   }
 
@@ -64,6 +65,7 @@ export class AppComponent {
 
     if (this.filterForm.value.gender) {
       const gender = this.filterForm.value.gender.toLocaleUpperCase();
+      console.log(this.filterForm.value.gender);
       this.filteredPersonsData = this.filteredPersonsData.filter(
         (p) => p.sexo === gender
       );

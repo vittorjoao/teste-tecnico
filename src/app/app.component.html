@@ -31,7 +31,7 @@
         </mat-form-field>
         <mat-form-field id="gender">
           <mat-label>Sexo</mat-label>
-          <mat-select formControlName="gender">
+          <mat-select formControlName="gender" (selectionChange)="onSubmit()">
             <mat-option value="">Ambos</mat-option>
             <mat-option value="MASCULINO">Masculino</mat-option>
             <mat-option value="FEMININO">Feminino</mat-option>
