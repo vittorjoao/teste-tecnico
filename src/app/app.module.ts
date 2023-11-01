@@ -15,13 +15,22 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ListCardComponent } from './list-card/list-card.component';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { PaginationComponent } from './pagination/pagination.component';
+import {
+  MatPaginatorIntl,
+  MatPaginatorModule,
+} from '@angular/material/paginator';
+import { PTBRMatPaginatorIntl } from './utils/paginator.intl';
 
 @NgModule({
-  declarations: [AppComponent, ListCardComponent, PaginationComponent],
-  providers: [],
+  declarations: [AppComponent, ListCardComponent],
+  providers: [
+    {
+      provide: MatPaginatorIntl,
+      useClass: PTBRMatPaginatorIntl,
+    },
+  ],
   bootstrap: [AppComponent],
   imports: [
     BrowserModule,
@@ -39,6 +48,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     MatSelectModule,
     MatButtonModule,
     MatPaginatorModule,
+    MatProgressBarModule,
   ],
 })
 export class AppModule {}

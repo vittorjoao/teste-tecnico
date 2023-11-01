@@ -8,14 +8,26 @@
   padding: 0px !important;
 }
 
+.mdc-list:hover {
+  padding: 10px;
+  border: 1px solid #3f51b5;
+  cursor: pointer;
+}
+
+.mat-mdc-list-item.mdc-list-item {
+  cursor: pointer;
+}
+
 /* Material List Item */
 span[matlistitemtitle] {
   font-size: 0.875rem;
   line-height: 1.25rem !important;
+  cursor: pointer;
 }
 
 /* Material List Item Line */
 span[matListItemLine] {
   font-size: 0.75rem;
   line-height: 1rem !important;
+  cursor: pointer;
 }

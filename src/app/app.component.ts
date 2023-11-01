@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Person } from 'src/types';
 import { ApiService } from './api.service';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-root',
@@ -19,17 +20,26 @@ export class AppComponent {
     age: new FormControl(''),
     gender: new FormControl(''),
   });
+  /* Pagination attributes */
+  totalPages: number = 0;
+  currentPage: number = 0;
+  /* Loading indicator variable */
+  loading: boolean = false;
 
   constructor(private apiService: ApiService) {
-    this.getMissingPersons();
+    this.getMissingPersons(null);
     this.resetFilter(true);
   }
 
   /* Load data from service and subscribe content into personsData */
-  getMissingPersons(): void {
-    this.apiService.get().subscribe((API) => {
+  getMissingPersons(event: PageEvent | null): void {
+    this.loading = true;
+    this.apiService.get(event?.pageIndex ?? 0).subscribe((API) => {
       this.personsData = API.content;
       this.filteredPersonsData = this.personsData;
+      this.totalPages = API.totalElements;
+      this.currentPage = API.pageable.pageNumber;
+      this.loading = false;
     });
   }
 

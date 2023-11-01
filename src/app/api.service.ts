@@ -12,12 +12,12 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  get(): Observable<API> {
+  get(page: number): Observable<API> {
     const options = {
       params: new HttpParams()
         .set('porPagina', 12)
         .append('status', 'DESAPARECIDO')
-        .append('pagina', 0),
+        .append('pagina', page),
     };
 
     return this.http.get<API>(this.API_URL, options).pipe(
