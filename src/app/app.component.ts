@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Person, GenderOptions } from 'src/types';
+import { Person } from 'src/types';
+import { ApiService } from './api.service';
 
 @Component({
   selector: 'app-root',
@@ -8,117 +9,65 @@ import { Person, GenderOptions } from 'src/types';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  /* Inital array of missing persons  */
+  personsData: Person[] = [];
+  /* Array for applying filters under personsData */
+  filteredPersonsData: Person[] = [];
+  /* Form control */
   filterForm = new FormGroup({
     name: new FormControl(''),
     age: new FormControl(''),
     gender: new FormControl(''),
   });
-  personsData: Person[] = [
-    {
-      id: 7160,
-      nome: 'PEDRO HENRIQUE DA SILVA OLIVEIRA',
-      idade: 31,
-      sexo: 'MASCULINO',
-      vivo: true,
-      urlFoto: null,
-      ultimaOcorrencia: {
-        dtDesaparecimento: '2023-10-28T17:00:00',
-        dataLocalizacao: '2023-10-30',
-        encontradoVivo: true,
-        localDesaparecimentoConcat: 'RESIDENCIAL SAO CARLOS - Cuiabá/MT',
-        ocorrenciaEntrevDesapDTO: null,
-        listaCartaz: null,
-        ocoId: 3597,
-      },
-    },
-    {
-      id: 7157,
-      nome: 'ROSANA KIST',
-      idade: 40,
-      sexo: 'FEMININO',
-      vivo: true,
-      urlFoto: null,
-      ultimaOcorrencia: {
-        dtDesaparecimento: '2023-10-27T20:00:00',
-        dataLocalizacao: '2023-10-30',
-        encontradoVivo: true,
-        localDesaparecimentoConcat: 'CHAPEU DO SOL - Várzea Grande/MT',
-        ocorrenciaEntrevDesapDTO: null,
-        listaCartaz: null,
-        ocoId: 3596,
-      },
-    },
-    {
-      id: 7139,
-      nome: 'GABRIEL CRISTIAN MUNIZ ROCHA',
-      idade: 23,
-      sexo: 'MASCULINO',
-      vivo: true,
-      urlFoto:
-        'https://s3.pjc.mt.gov.br/abitus.foto-pessoa/9c325db386c447bd02ee5035f7ed7bbe021fd99ba7bbccb650bc7f3ef57194f8-1698416805605.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=pjcmtminio%2F20231030%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20231030T233616Z&X-Amz-Expires=600&X-Amz-SignedHeaders=host&X-Amz-Signature=043a313e9143b8230d8243835e7c70c50a9405583d8dfb9a301709c45a297660',
-      ultimaOcorrencia: {
-        dtDesaparecimento: '2023-10-27T09:09:00',
-        dataLocalizacao: '2023-10-30',
-        encontradoVivo: true,
-        localDesaparecimentoConcat: 'BANDEIRANTES - Cuiabá/MT',
-        ocorrenciaEntrevDesapDTO: {
-          informacao:
-            'A vítima está desaparecida desde a data acima informada, familiares buscam por notícias',
-          vestimentasDesaparecido:
-            'Camisa listrada vermelha e azul, bermuda jeans e chinelo',
-        },
-        listaCartaz: null,
-        ocoId: 3589,
-      },
-    },
-  ];
-  filteredPersonsData: Person[] = [];
 
-  genderOptions: GenderOptions[] = [
-    {
-      value: 'MASCULINO',
-      viewValue: 'Masculino',
-    },
-    {
-      value: 'FEMININO',
-      viewValue: 'Feminino',
-    },
-  ];
-
-  constructor() {
-    // TODO: serviço de API
-    this.resetFilter();
+  constructor(private apiService: ApiService) {
+    this.getMissingPersons();
+    this.resetFilter(true);
   }
 
+  /* Load data from service and subscribe content into personsData */
+  getMissingPersons(): void {
+    this.apiService.get().subscribe((API) => {
+      this.personsData = API.content;
+      this.filteredPersonsData = this.personsData;
+    });
+  }
+
+  /* Apply filters on form submit */
   onSubmit() {
-    this.resetFilter();
+    this.resetFilter(false);
 
     if (this.filterForm.value.name) {
-      let name = this.filterForm.value.name;
+      /* Declaring variable temporarily to convert type or avoid null values */
+      const name = this.filterForm.value.name;
       this.filteredPersonsData = this.filteredPersonsData.filter((p) =>
         p.nome.toLowerCase().includes(name.toLowerCase())
       );
     }
 
     if (this.filterForm.value.age) {
-      let age = parseInt(this.filterForm.value.age);
+      const age = parseInt(this.filterForm.value.age);
       this.filteredPersonsData = this.filteredPersonsData.filter(
         (p) => p.idade === age
       );
     }
 
     if (this.filterForm.value.gender) {
-      let gender = this.filterForm.value.gender.toLocaleUpperCase();
+      const gender = this.filterForm.value.gender.toLocaleUpperCase();
       this.filteredPersonsData = this.filteredPersonsData.filter(
         (p) => p.sexo === gender
       );
     }
   }
 
-  resetFilter() {
+  /* Resets the filters to the original state of personsData as well as the form to empty values */
+  resetFilter(applyToGender: boolean) {
     this.filteredPersonsData = this.personsData;
-    this.filterForm.reset({
-      gender: '',
-    });
+
+    if (applyToGender) {
+      this.filterForm.reset({
+        gender: '',
+      });
+    }
   }
 }

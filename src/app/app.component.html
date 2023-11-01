@@ -28,12 +28,8 @@
           <mat-label>Sexo</mat-label>
           <mat-select formControlName="gender">
             <mat-option value="">Ambos</mat-option>
-            <mat-option
-              *ngFor="let option of genderOptions"
-              [value]="option.value"
-            >
-              {{ option.viewValue }}
-            </mat-option>
+            <mat-option value="MASCULINO">Masculino</mat-option>
+            <mat-option value="FEMININO">Feminino</mat-option>
           </mat-select>
         </mat-form-field>
         <div class="flex gap-2 mb-[22px]">
@@ -50,7 +46,7 @@
             mat-icon-button
             color="primary"
             aria-label="Clear"
-            (click)="resetFilter()"
+            (click)="resetFilter(true)"
           >
             <mat-icon>close</mat-icon>
           </button>

@@ -1,3 +1,33 @@
+/* Typed response for pagination reference */
+export interface API {
+  content: Person[];
+  pageable: {
+    sort: {
+      unsorted: boolean;
+      sorted: boolean;
+      empty: boolean;
+    };
+    pageNumber: number;
+    pageSize: number;
+    offset: number;
+    paged: boolean;
+    unpaged: boolean;
+  };
+  last: boolean;
+  totalElements: number;
+  totalPages: number;
+  first: boolean;
+  numberOfElements: number;
+  sort: {
+    unsorted: boolean;
+    sorted: boolean;
+    empty: boolean;
+  };
+  number: number;
+  size: number;
+  empty: boolean;
+}
+
 export interface Person {
   id: number;
   nome: string;
@@ -21,9 +51,4 @@ interface LastOccurrence {
 interface OccurrenceDetails {
   informacao: string;
   vestimentasDesaparecido: string | null;
-}
-
-export interface GenderOptions {
-  value: string;
-  viewValue: string;
 }
