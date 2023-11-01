@@ -1,4 +1,4 @@
-<mat-list-item routerLink="detalhes" class="border-b border-slate-300">
+<mat-list-item (click)="gotoDetails()" class="border-b border-slate-300">
   <img
     matListItemAvatar
     src="{{ person.urlFoto ?? '/assets/avatar.png' }}"

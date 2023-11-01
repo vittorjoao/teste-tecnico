@@ -26,7 +26,9 @@ export class HomeComponent {
   /* Loading indicator variable */
   loading: boolean = false;
 
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService) {}
+
+  ngOnInit() {
     this.getMissingPersons(null);
     this.resetFilter(true);
   }
