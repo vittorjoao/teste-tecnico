@@ -7,8 +7,7 @@ import { API, Person } from 'src/types';
   providedIn: 'root',
 })
 export class ApiService {
-  private API_URL: string =
-    'https://abitus-api.pjc.mt.gov.br/v1/pessoas/aberto/filtro';
+  private API_URL: string = 'https://abitus-api.pjc.mt.gov.br/v1/pessoas/';
 
   constructor(private http: HttpClient) {}
 
@@ -20,9 +19,22 @@ export class ApiService {
         .append('pagina', page),
     };
 
-    return this.http.get<API>(this.API_URL, options).pipe(
-      tap((_) => console.log('fetched missing persons API')),
+    return this.http.get<API>(`${this.API_URL}aberto/filtro`, options).pipe(
+      tap((_) => console.log('[API] Fetched missing persons')),
       catchError(this.handleError<API>('get'))
+    );
+  }
+
+  getById(id: number): Observable<Person> {
+    const options = {
+      params: new HttpParams().set('id', id),
+    };
+
+    return this.http.get<Person>(`${this.API_URL}${id}`, options).pipe(
+      tap((_) =>
+        console.log(`[API] Fetched missing person details by id: ${id} `)
+      ),
+      catchError(this.handleError<Person>('getById'))
     );
   }
 
