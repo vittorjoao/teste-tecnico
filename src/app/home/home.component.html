@@ -1,0 +1,75 @@
+<mat-progress-bar
+  mode="indeterminate"
+  class="absolute top-0 left-0"
+  *ngIf="loading"
+></mat-progress-bar>
+<main
+  class="min-h-screen flex flex-col justify-center items-center mx-auto p-4 bg-gray-200"
+>
+  <div class="w-full md:max-w-lg">
+    <!-- FILTER FORM -->
+    <form [formGroup]="filterForm" (ngSubmit)="onSubmit()" class="w-full">
+      <mat-form-field id="name" class="w-full">
+        <mat-label>Nome</mat-label>
+        <input
+          id="name"
+          type="text"
+          placeholder="Pesquisar nome..."
+          matInput
+          formControlName="name"
+        />
+      </mat-form-field>
+      <div class="flex justify-between items-center gap-2">
+        <mat-form-field id="age">
+          <mat-label>Idade</mat-label>
+          <input
+            type="number"
+            placeholder="Pesquisar idade..."
+            matInput
+            formControlName="age"
+          />
+        </mat-form-field>
+        <mat-form-field id="gender">
+          <mat-label>Sexo</mat-label>
+          <mat-select formControlName="gender" (selectionChange)="onSubmit()">
+            <mat-option value="">Ambos</mat-option>
+            <mat-option value="MASCULINO">Masculino</mat-option>
+            <mat-option value="FEMININO">Feminino</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="flex gap-2 mb-[22px]">
+          <button
+            type="submit"
+            mat-icon-button
+            color="primary"
+            aria-label="Search"
+          >
+            <mat-icon>search</mat-icon>
+          </button>
+          <button
+            type="button"
+            mat-icon-button
+            color="primary"
+            aria-label="Clear"
+            (click)="resetFilter(true)"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+    </form>
+    <!-- DATA LIST -->
+    <div class="rounded-md text-xs">
+      <mat-list *ngFor="let person of filteredPersonsData">
+        <app-list-card [person]="person" />
+      </mat-list>
+    </div>
+    <!-- PAGINATION -->
+    <mat-paginator
+      [length]="totalPages"
+      [pageSize]="12"
+      [pageIndex]="currentPage"
+      (page)="getMissingPersons($event)"
+    ></mat-paginator>
+  </div>
+</main>

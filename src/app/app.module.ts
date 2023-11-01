@@ -22,9 +22,11 @@ import {
   MatPaginatorModule,
 } from '@angular/material/paginator';
 import { PTBRMatPaginatorIntl } from './utils/paginator.intl';
+import { DetailsComponent } from './details/details.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, ListCardComponent],
+  declarations: [AppComponent, ListCardComponent, DetailsComponent, HomeComponent],
   providers: [
     {
       provide: MatPaginatorIntl,
