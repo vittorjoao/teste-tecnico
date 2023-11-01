@@ -22,3 +22,8 @@ interface OccurrenceDetails {
   informacao: string;
   vestimentasDesaparecido: string | null;
 }
+
+export interface GenderOptions {
+  value: string;
+  viewValue: string;
+}

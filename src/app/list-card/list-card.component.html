@@ -1,10 +1,10 @@
 <mat-list-item class="border-b border-slate-300">
   <img
     matListItemAvatar
-    src="{{ item.urlFoto ?? '/assets/avatar.png' }}"
+    src="{{ person.urlFoto ?? '/assets/avatar.png' }}"
     alt="foto_pessoa"
     class="border border-slate-300 shadow-sm"
   />
-  <span matListItemTitle>{{ item.nome }} </span>
-  <span matListItemLine>{{ item.sexo }} - {{ item.idade }} Anos </span>
+  <span matListItemTitle>{{ person.nome }}</span>
+  <span matListItemLine>{{ person.sexo }} - {{ person.idade }} Anos</span>
 </mat-list-item>

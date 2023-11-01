@@ -2,8 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Material List */
 .mdc-list {
   background-color: white;
-  border-radius: 4px;
   padding: 0px !important;
+}
+
+/* Material List Item */
+span[matlistitemtitle] {
+  font-size: 0.875rem;
+  line-height: 1.25rem !important;
+}
+
+/* Material List Item Line */
+span[matListItemLine] {
+  font-size: 0.75rem;
+  line-height: 1rem !important;
 }

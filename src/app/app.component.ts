@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Person } from 'src/types';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Person, GenderOptions } from 'src/types';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,12 @@ import { Person } from 'src/types';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  dados: Person[] = [
+  filterForm = new FormGroup({
+    name: new FormControl(''),
+    age: new FormControl(''),
+    gender: new FormControl(''),
+  });
+  personsData: Person[] = [
     {
       id: 7160,
       nome: 'PEDRO HENRIQUE DA SILVA OLIVEIRA',
@@ -66,4 +72,53 @@ export class AppComponent {
       },
     },
   ];
+  filteredPersonsData: Person[] = [];
+
+  genderOptions: GenderOptions[] = [
+    {
+      value: 'MASCULINO',
+      viewValue: 'Masculino',
+    },
+    {
+      value: 'FEMININO',
+      viewValue: 'Feminino',
+    },
+  ];
+
+  constructor() {
+    // TODO: serviço de API
+    this.resetFilter();
+  }
+
+  onSubmit() {
+    this.resetFilter();
+
+    if (this.filterForm.value.name) {
+      let name = this.filterForm.value.name;
+      this.filteredPersonsData = this.filteredPersonsData.filter((p) =>
+        p.nome.toLowerCase().includes(name.toLowerCase())
+      );
+    }
+
+    if (this.filterForm.value.age) {
+      let age = parseInt(this.filterForm.value.age);
+      this.filteredPersonsData = this.filteredPersonsData.filter(
+        (p) => p.idade === age
+      );
+    }
+
+    if (this.filterForm.value.gender) {
+      let gender = this.filterForm.value.gender.toLocaleUpperCase();
+      this.filteredPersonsData = this.filteredPersonsData.filter(
+        (p) => p.sexo === gender
+      );
+    }
+  }
+
+  resetFilter() {
+    this.filteredPersonsData = this.personsData;
+    this.filterForm.reset({
+      gender: '',
+    });
+  }
 }

@@ -7,5 +7,5 @@ import { Person } from 'src/types';
   styleUrls: ['./list-card.component.css'],
 })
 export class ListCardComponent {
-  @Input() item: Partial<Person> = {};
+  @Input() person: Partial<Person> = {};
 }
